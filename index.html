@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación cumpleaños Juanse</title>
+    <title>Pool Party Tropical - Invitación Especial</title>
     <!-- Tipografía Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,8 +46,8 @@
             justify-content: center;
             align-items: center;
             background: var(--bg-gradient);
-            overflow: hidden;
-            padding: 20px;
+            overflow-x: hidden;
+            padding: 16px;
             color: var(--text-light);
             position: relative;
         }
@@ -91,8 +91,8 @@
             backdrop-filter: blur(30px) saturate(140%);
             -webkit-backdrop-filter: blur(30px) saturate(140%);
             border: 1px solid var(--glass-border);
-            border-radius: 36px;
-            padding: 40px 28px;
+            border-radius: 32px;
+            padding: 32px 20px;
             box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6),
                         inset 0 1.5px 0 rgba(255, 255, 255, 0.25),
                         0 0 40px rgba(45, 212, 191, 0.08);
@@ -126,22 +126,22 @@
            3. ENCABEZADO Y TEXTOS
            ========================================== */
         .tag {
-            font-size: 0.75rem;
-            letter-spacing: 5px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--gold-accent);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 700;
             text-shadow: 0 0 12px rgba(252, 211, 77, 0.4);
             display: inline-block;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
             letter-spacing: -0.5px;
             line-height: 1.1;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             background: linear-gradient(135deg, #ffffff 30%, #e2e8f0 70%, var(--tropical-cyan) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -150,9 +150,9 @@
 
         .subtitle {
             color: var(--text-muted);
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 400;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             line-height: 1.5;
         }
 
@@ -162,10 +162,10 @@
         .inventory-nav {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 22px;
+            gap: 10px;
+            margin-bottom: 20px;
             background: rgba(0, 0, 0, 0.25);
-            padding: 8px;
+            padding: 6px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -174,10 +174,10 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            width: 54px; height: 54px;
-            border-radius: 16px;
+            width: 48px; height: 48px;
+            border-radius: 14px;
             cursor: pointer;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -188,7 +188,7 @@
 
         .nav-btn:hover {
             color: #fff;
-            transform: translateY(-3px) scale(1.08);
+            transform: translateY(-2px) scale(1.05);
             background: rgba(255, 255, 255, 0.08);
         }
 
@@ -201,7 +201,7 @@
             border: 1.5px solid var(--gold-accent);
             color: var(--gold-accent);
             box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25), inset 0 0 10px rgba(252, 211, 77, 0.2);
-            transform: scale(1.1);
+            transform: scale(1.08);
         }
 
         .nav-btn.active::after {
@@ -217,10 +217,10 @@
         .display-box {
             background: rgba(5, 20, 18, 0.55);
             border-radius: 24px;
-            padding: 22px 20px;
-            min-height: 120px;
+            padding: 20px 16px;
+            min-height: 115px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -248,56 +248,53 @@
 
         .info-title {
             color: var(--tropical-cyan);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .info-val {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: #fff;
             letter-spacing: -0.2px;
         }
 
         .info-desc {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin-top: 4px;
             font-weight: 300;
         }
 
         /* ==========================================
-           5. ZONA DE ACCIÓN
+           5. ZONA DE ACCIÓN REPARADA
            ========================================== */
         .action-area {
             position: relative;
-            min-height: 60px;
+            min-height: 110px; /* Espacio adaptable */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hold-btn {
             background: linear-gradient(135deg, rgba(252, 211, 77, 0.12), rgba(45, 212, 191, 0.08));
             border: 2px solid var(--gold-accent);
             color: var(--gold-accent);
-            width: 100%; height: 60px;
+            width: 100%; height: 56px;
             border-radius: 100px;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             font-weight: 800;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.2s var(--ease-juicy);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
             outline: none;
-        }
-
-        .hold-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.25);
-            background: rgba(252, 211, 77, 0.2);
         }
 
         .hold-btn:active {
@@ -316,13 +313,8 @@
         .hold-btn .btn-text {
             position: relative;
             z-index: 2;
-            transition: color 0.2s ease, transform 0.2s ease;
+            transition: color 0.2s ease;
             display: block;
-        }
-
-        .hold-btn.holding {
-            transform: scale(0.98);
-            box-shadow: 0 0 25px rgba(255, 107, 107, 0.4);
         }
 
         .hold-btn.holding .btn-text {
@@ -330,11 +322,13 @@
             font-weight: 900;
         }
 
-        /* FORMULARIO DE NOMBRE */
+        /* FORMULARIO ADAPTABLE RESPONSIVE */
         .name-dialog {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; gap: 10px;
+            top: 0; left: 0; width: 100%;
+            display: flex; 
+            flex-direction: column; /* Apila los elementos en cel */
+            gap: 12px;
             opacity: 0; pointer-events: none;
             transform: translateY(20px) scale(0.9);
             transition: all 0.4s var(--ease-juicy);
@@ -346,14 +340,16 @@
         }
 
         .name-input {
-            flex: 2;
-            background: rgba(5, 20, 18, 0.85);
+            width: 100%;
+            height: 50px;
+            background: rgba(5, 20, 18, 0.9);
             border: 1.5px solid var(--tropical-cyan);
             border-radius: 100px;
             padding: 0 20px;
             color: #fff;
             font-size: 0.95rem;
             outline: none;
+            text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
             user-select: text;
@@ -370,29 +366,26 @@
         }
 
         .btn-send {
-            flex: 1;
+            width: 100%;
+            height: 52px;
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: #fff;
             border: none;
             border-radius: 100px;
             font-weight: 800;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
             transition: all 0.2s var(--ease-juicy);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-        }
-
-        .btn-send:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
+            gap: 6px;
         }
 
         .btn-send:active {
-            transform: scale(0.94);
+            transform: scale(0.95);
         }
 
         .click-spark {
@@ -473,10 +466,10 @@
                     <span class="btn-text" id="btnText">MANTÉN PRESIONADO PARA CONFIRMAR</span>
                 </button>
 
-                <!-- 2. Formulario de Nombre -->
+                <!-- 2. Formulario de Nombre (Optimizado Celular) -->
                 <div class="name-dialog" id="nameDialog">
-                    <input type="text" id="guestName" class="name-input" placeholder="Tu nombre..." autocomplete="off">
-                    <button class="btn-send" id="btnSendWhatsapp">CONFIRMAR 📲</button>
+                    <input type="text" id="guestName" class="name-input" placeholder="Escribe tu nombre..." autocomplete="off">
+                    <button class="btn-send" id="btnSendWhatsapp">CONFIRMAR ASISTENCIA 📲</button>
                 </div>
 
             </div>
@@ -485,7 +478,7 @@
     </div>
 
     <script>
-        // --- NÚMERO DE WHATSAPP CONFIGURADO (+57 314 770 2485) ---
+        // --- NÚMERO DE WHATSAPP CONFIGURADO ---
         const PHONE_NUMBER = "573147702485";
 
         // ==========================================
@@ -501,10 +494,10 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const particles = Array.from({ length: 35 }, () => ({
+        const particles = Array.from({ length: 30 }, () => ({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            size: Math.random() * 4 + 1.5,
+            size: Math.random() * 3.5 + 1.5,
             speedX: Math.random() * 0.6 - 0.3,
             speedY: Math.random() * -0.6 - 0.2,
             opacity: Math.random() * 0.6 + 0.2,
@@ -582,7 +575,7 @@
 
         let holdTimer = null;
         let progress = 0;
-        const holdDuration = 800; // ms
+        const holdDuration = 800;
         const intervalTime = 15;
 
         function startHold(e) {
@@ -624,6 +617,7 @@
             holdBtn.style.transform = 'scale(0.8)';
             
             setTimeout(() => {
+                holdBtn.style.display = 'none';
                 nameDialog.classList.add('active');
                 guestNameInput.focus();
             }, 150);
@@ -631,7 +625,7 @@
             if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
         }
 
-        // Paso 2: Redirección directa e inmediata al chat de WhatsApp al hacer clic
+        // Paso 2: Redirección inmediata al chat
         function processSend() {
             const name = guestNameInput.value.trim();
             if (!name) {
@@ -639,7 +633,6 @@
                 return;
             }
 
-            // Confeti de celebración
             confetti({
                 particleCount: 100,
                 spread: 70,
@@ -649,11 +642,9 @@
 
             if (navigator.vibrate) navigator.vibrate([40, 80, 40]);
 
-            // Mensaje prediseñado para el chat
-            const textMessage = encodeURIComponent(`¡Hola! 🌴, soy ${name} y quiero confirmar mi asistencia al cumpleaños de Juanse 🥳🎉`);
+            const textMessage = encodeURIComponent(`¡Hola Juanse! 🌴 Confirmadísimo, soy ${name} y voy a tu Pool Party 🥳🎉`);
             const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${textMessage}`;
 
-            // Redirección directa del navegador (funciona sin ser bloqueado)
             setTimeout(() => {
                 window.location.href = whatsappUrl;
             }, 300);
