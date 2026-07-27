@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación cumpleaños Juanse</title>
+    <!-- Tipografía Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        /* ==========================================
+           1. PALETA TROPICAL ELEGANTE & VARIABLES
+           ========================================== */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b2b26 0%, #053b36 35%, #0f4c3a 70%, #1d2e28 100%);
+            --glass-bg: rgba(10, 35, 30, 0.55);
+            --glass-border: rgba(255, 215, 0, 0.35);
+            --gold-accent: #fcd34d;
+            --gold-glow: #f59e0b;
+            --tropical-cyan: #2dd4bf;
+            --tropical-coral: #ff6b6b;
+            --coral-glow: #f43f5e;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --ease-juicy: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-gradient);
+            overflow: hidden;
+            padding: 20px;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.18) 0%, rgba(245, 158, 11, 0.08) 50%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatGlow 12s ease-in-out infinite alternate;
+            z-index: 2;
+            filter: blur(40px);
+        }
+
+        @keyframes floatGlow {
+            0% { transform: scale(0.9) translate(-40px, -30px); }
+            50% { transform: scale(1.15) translate(30px, 40px); }
+            100% { transform: scale(1) translate(-20px, 20px); }
+        }
+
+        /* ==========================================
+           2. CONTAINER & TARJETA GLASSMORPHIC
+           ========================================== */
+        .card-container {
+            perspective: 1200px;
+            width: 100%;
+            max-width: 460px;
+            z-index: 10;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px) saturate(140%);
+            -webkit-backdrop-filter: blur(30px) saturate(140%);
+            border: 1px solid var(--glass-border);
+            border-radius: 36px;
+            padding: 40px 28px;
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6),
+                        inset 0 1.5px 0 rgba(255, 255, 255, 0.25),
+                        0 0 40px rgba(45, 212, 191, 0.08);
+            text-align: center;
+            position: relative;
+            
+            opacity: 0;
+            transform: translateY(40px) scale(0.92) rotateX(10deg);
+            animation: cardEntrance 1.2s var(--ease-juicy) forwards 0.2s;
+            transition: transform 0.15s var(--ease-smooth);
+        }
+
+        @keyframes cardEntrance {
+            to { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+        }
+
+        .card-frame-corner {
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid var(--gold-accent);
+            pointer-events: none;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        .top-left { top: 18px; left: 18px; border-right: none; border-bottom: none; border-top-left-radius: 10px; }
+        .top-right { top: 18px; right: 18px; border-left: none; border-bottom: none; border-top-right-radius: 10px; }
+        .bottom-left { bottom: 18px; left: 18px; border-right: none; border-top: none; border-bottom-left-radius: 10px; }
+        .bottom-right { bottom: 18px; right: 18px; border-left: none; border-top: none; border-bottom-right-radius: 10px; }
+
+        /* ==========================================
+           3. ENCABEZADO Y TEXTOS
+           ========================================== */
+        .tag {
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-accent);
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 0 12px rgba(252, 211, 77, 0.4);
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 30%, #e2e8f0 70%, var(--tropical-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            font-weight: 400;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* ==========================================
+           4. MENÚ INTERACTIVO TIPO GAMER
+           ========================================== */
+        .inventory-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            width: 54px; height: 54px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s var(--ease-juicy);
+            position: relative;
+            outline: none;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            transform: translateY(-3px) scale(1.08);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.92);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, rgba(252, 211, 77, 0.25), rgba(245, 158, 11, 0.15));
+            border: 1.5px solid var(--gold-accent);
+            color: var(--gold-accent);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25), inset 0 0 10px rgba(252, 211, 77, 0.2);
+            transform: scale(1.1);
+        }
+
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            width: 6px; height: 6px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--gold-accent);
+        }
+
+        .display-box {
+            background: rgba(5, 20, 18, 0.55);
+            border-radius: 24px;
+            padding: 22px 20px;
+            min-height: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .info-content {
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+            transition: all 0.35s var(--ease-juicy);
+            position: absolute;
+            width: 90%;
+            pointer-events: none;
+        }
+
+        .info-content.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            position: relative;
+            pointer-events: all;
+        }
+
+        .info-title {
+            color: var(--tropical-cyan);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .info-val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.2px;
+        }
+
+        .info-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-weight: 300;
+        }
+
+        /* ==========================================
+           5. ZONA DE ACCIÓN
+           ========================================== */
+        .action-area {
+            position: relative;
+            min-height: 60px;
+        }
+
+        .hold-btn {
+            background: linear-gradient(135deg, rgba(252, 211, 77, 0.12), rgba(45, 212, 191, 0.08));
+            border: 2px solid var(--gold-accent);
+            color: var(--gold-accent);
+            width: 100%; height: 60px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s var(--ease-juicy);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+            outline: none;
+        }
+
+        .hold-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.25);
+            background: rgba(252, 211, 77, 0.2);
+        }
+
+        .hold-btn:active {
+            transform: scale(0.96);
+        }
+
+        .hold-btn .fill {
+            position: absolute;
+            top: 0; left: 0; height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--gold-accent), var(--tropical-coral));
+            transition: width 0.05s linear;
+            z-index: 1;
+            border-radius: 100px;
+        }
+
+        .hold-btn .btn-text {
+            position: relative;
+            z-index: 2;
+            transition: color 0.2s ease, transform 0.2s ease;
+            display: block;
+        }
+
+        .hold-btn.holding {
+            transform: scale(0.98);
+            box-shadow: 0 0 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .hold-btn.holding .btn-text {
+            color: #0b2b26;
+            font-weight: 900;
+        }
+
+        /* FORMULARIO DE NOMBRE */
+        .name-dialog {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; gap: 10px;
+            opacity: 0; pointer-events: none;
+            transform: translateY(20px) scale(0.9);
+            transition: all 0.4s var(--ease-juicy);
+        }
+
+        .name-dialog.active {
+            opacity: 1; pointer-events: all;
+            transform: translateY(0) scale(1);
+        }
+
+        .name-input {
+            flex: 2;
+            background: rgba(5, 20, 18, 0.85);
+            border: 1.5px solid var(--tropical-cyan);
+            border-radius: 100px;
+            padding: 0 20px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            user-select: text;
+        }
+
+        .name-input::placeholder {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .name-input:focus {
+            box-shadow: 0 0 15px rgba(45, 212, 191, 0.5);
+            border-color: #fff;
+        }
+
+        .btn-send {
+            flex: 1;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.2s var(--ease-juicy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-send:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-send:active {
+            transform: scale(0.94);
+        }
+
+        .click-spark {
+            position: absolute;
+            width: 10px; height: 10px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkFade 0.6s var(--ease-smooth) forwards;
+            z-index: 100;
+        }
+
+        @keyframes sparkFade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div class="ambient-glow"></div>
+
+    <div class="card-container">
+        <div class="glass-card" id="mainCard">
+            
+            <div class="card-frame-corner top-left"></div>
+            <div class="card-frame-corner top-right"></div>
+            <div class="card-frame-corner bottom-left"></div>
+            <div class="card-frame-corner bottom-right"></div>
+
+            <div class="tag">✦ ESTÁS INVITADO AL CUMPLEAÑOS DE ✦</div>
+            <h1>JUANSE</h1>
+            <p class="subtitle">Celebramos sus 16 años</p>
+
+            <!-- MENÚ TIPO INVENTARIO -->
+            <div class="inventory-nav">
+                <button class="nav-btn active" data-target="info-fecha" title="Fecha y Hora">📅</button>
+                <button class="nav-btn" data-target="info-lugar" title="Ubicación">🌴</button>
+                <button class="nav-btn" data-target="info-dress" title="Qué llevar">🩳</button>
+                <button class="nav-btn" data-target="info-regalo" title="¿Que doy?">🎁</button>
+            </div>
+
+            <!-- DISPLAY PANTALLA -->
+            <div class="display-box">
+                <div class="info-content active" id="info-fecha">
+                    <div class="info-title">Cuándo</div>
+                    <div class="info-val">Sábado, 22 de Agosto</div>
+                    <div class="info-desc">Desde las 10:00 AM hasta las 6:00 PM</div>
+                </div>
+
+                <div class="info-content" id="info-lugar">
+                    <div class="info-title">Dónde</div>
+                    <div class="info-val">Casa Campestre</div>
+                    <div class="info-desc">A las afueras de la ciudad (Vía Sampués)</div>
+                </div>
+
+                <div class="info-content" id="info-dress">
+                    <div class="info-title">Equipamiento Necesario</div>
+                    <div class="info-val">Traje de Baño & Outfit Tropical</div>
+                    <div class="info-desc">Toalla, muda de ropa</div>
+                </div>
+
+                <div class="info-content" id="info-regalo">
+                    <div class="info-title">Si me quieres dar algo:</div>
+                    <div class="info-val">Lluvia de sobres</div>
+                    <div class="info-desc">Por transferencia también, no hay problema con eso</div>
+                </div>
+            </div>
+
+            <!-- BOTÓN DE ACCIÓN / CONFIRMACIÓN -->
+            <div class="action-area">
+                
+                <!-- 1. Mantener pulsado -->
+                <button class="hold-btn" id="holdBtn">
+                    <div class="fill" id="btnFill"></div>
+                    <span class="btn-text" id="btnText">MANTÉN PRESIONADO PARA CONFIRMAR</span>
+                </button>
+
+                <!-- 2. Formulario de Nombre -->
+                <div class="name-dialog" id="nameDialog">
+                    <input type="text" id="guestName" class="name-input" placeholder="Tu nombre..." autocomplete="off">
+                    <button class="btn-send" id="btnSendWhatsapp">CONFIRMAR 📲</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- NÚMERO DE WHATSAPP CONFIGURADO (+57 314 770 2485) ---
+        const PHONE_NUMBER = "573147702485";
+
+        // ==========================================
+        // 1. PARTÍCULAS DE FONDO
+        // ==========================================
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = Array.from({ length: 35 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 4 + 1.5,
+            speedX: Math.random() * 0.6 - 0.3,
+            speedY: Math.random() * -0.6 - 0.2,
+            opacity: Math.random() * 0.6 + 0.2,
+            color: Math.random() > 0.4 ? '#fcd34d' : '#2dd4bf'
+        }));
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.x < 0 || p.x > canvas.width) p.x = Math.random() * canvas.width;
+
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.opacity;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ==========================================
+        // 2. TILT EFFECT
+        // ==========================================
+        const mainCard = document.getElementById('mainCard');
+        
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            mainCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // ==========================================
+        // 3. NAVEGACIÓN TAB
+        // ==========================================
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const infoContents = document.querySelectorAll('.info-content');
+
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                createSpark(e.clientX, e.clientY);
+
+                navBtns.forEach(b => b.classList.remove('active'));
+                infoContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+
+                if (navigator.vibrate) navigator.vibrate(25);
+            });
+        });
+
+        function createSpark(x, y) {
+            const spark = document.createElement('div');
+            spark.className = 'click-spark';
+            spark.style.left = `${x - 5}px`;
+            spark.style.top = `${y - 5}px`;
+            document.body.appendChild(spark);
+            setTimeout(() => spark.remove(), 600);
+        }
+
+        // ==========================================
+        // 4. LÓGICA DE CONFIRMACIÓN Y REDIRECCIÓN A WHATSAPP
+        // ==========================================
+        const holdBtn = document.getElementById('holdBtn');
+        const btnFill = document.getElementById('btnFill');
+        const btnText = document.getElementById('btnText');
+        const nameDialog = document.getElementById('nameDialog');
+        const guestNameInput = document.getElementById('guestName');
+        const btnSendWhatsapp = document.getElementById('btnSendWhatsapp');
+
+        let holdTimer = null;
+        let progress = 0;
+        const holdDuration = 800; // ms
+        const intervalTime = 15;
+
+        function startHold(e) {
+            progress = 0;
+            holdBtn.classList.add('holding');
+            btnText.innerText = "CARGANDO...";
+
+            holdTimer = setInterval(() => {
+                progress += (intervalTime / holdDuration) * 100;
+                btnFill.style.width = `${progress}%`;
+
+                if (progress >= 100) {
+                    clearInterval(holdTimer);
+                    triggerNameInput();
+                }
+            }, intervalTime);
+        }
+
+        function endHold() {
+            if (progress < 100) {
+                clearInterval(holdTimer);
+                btnFill.style.width = '0%';
+                holdBtn.classList.remove('holding');
+                btnText.innerText = "MANTÉN PRESIONADO PARA CONFIRMAR";
+            }
+        }
+
+        holdBtn.addEventListener('mousedown', startHold);
+        holdBtn.addEventListener('mouseup', endHold);
+        holdBtn.addEventListener('mouseleave', endHold);
+
+        holdBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startHold(); });
+        holdBtn.addEventListener('touchend', endHold);
+
+        // Paso 1: Pedir el nombre del invitado
+        function triggerNameInput() {
+            holdBtn.style.opacity = '0';
+            holdBtn.style.pointerEvents = 'none';
+            holdBtn.style.transform = 'scale(0.8)';
+            
+            setTimeout(() => {
+                nameDialog.classList.add('active');
+                guestNameInput.focus();
+            }, 150);
+
+            if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+        }
+
+        // Paso 2: Redirección directa e inmediata al chat de WhatsApp al hacer clic
+        function processSend() {
+            const name = guestNameInput.value.trim();
+            if (!name) {
+                guestNameInput.style.borderColor = "var(--tropical-coral)";
+                return;
+            }
+
+            // Confeti de celebración
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#fcd34d', '#2dd4bf', '#ff6b6b', '#ffffff']
+            });
+
+            if (navigator.vibrate) navigator.vibrate([40, 80, 40]);
+
+            // Mensaje prediseñado para el chat
+            const textMessage = encodeURIComponent(`¡Hola! 🌴, soy ${name} y quiero confirmar mi asistencia al cumpleaños de Juanse 🥳🎉`);
+            const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${textMessage}`;
+
+            // Redirección directa del navegador (funciona sin ser bloqueado)
+            setTimeout(() => {
+                window.location.href = whatsappUrl;
+            }, 300);
+        }
+
+        btnSendWhatsapp.addEventListener('click', processSend);
+        guestNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') processSend();
+        });
+    </script>
+</body>
+</html>
